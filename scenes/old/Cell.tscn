@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/Cell.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/floor.png" type="Texture" id=2]
-[ext_resource path="res://assets/sprites/light.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/floor.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/light.png" type="Texture" id=2]
+[ext_resource path="res://scenes/old/Cell.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 48, 48 )
@@ -12,7 +12,7 @@ polygon = PoolVector2Array( 0, 0, 33.0323, 0, 33.0323, -8.53333, -8.25806, -8.53
 
 [node name="Cell" type="Node2D"]
 position = Vector2( 48, 48 )
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
@@ -21,7 +21,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Floor/CollisionShape2D"]
 scale = Vector2( 1.92, 1.92 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -92,6 +92,6 @@ color = Color( 0.466667, 0.196078, 0.0666667, 1 )
 polygon = PoolVector2Array( 31.9647, 0.0104256, 31.9647, -8.80735, -7.99366, -8.80735, -7.99366, 35.2815, -0.00197601, 35.2815, -3.8147e-06, 0 )
 
 [node name="Light2D" type="Light2D" parent="."]
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 texture_scale = 0.12
 shadow_enabled = true

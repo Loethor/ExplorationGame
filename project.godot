@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "",
+"base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
@@ -22,6 +22,10 @@ _global_script_class_icons={
 
 config/name="Exploration Game"
 config/icon="res://icon.png"
+
+[autoload]
+
+SignalBus="*res://scripts/SignalBus.gd"
 
 [gdnative]
 
