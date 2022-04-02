@@ -5,3 +5,6 @@
 bin/
 build/
 lib/
+
+*.import
+addons/
