@@ -2,7 +2,7 @@ extends Camera2D
 
 
 ## ZOOMING CODE ##
-
+# yoink : https://www.gdquest.com/tutorial/godot/2d/camera-zoom/
 
 # Lower cap for the `_zoom_level`.
 export var min_zoom := 0.5
@@ -47,6 +47,7 @@ func _unhandled_input(event):
 ## END OF ZOOMING CODE ##
 
 ## DRAGGING CODE ##
+# yoink https://godotengine.org/qa/24969/how-to-drag-camera-with-mouse
 
 var mouse_start_pos
 var screen_start_position
@@ -65,3 +66,42 @@ func _input(event):
 
 
 ## END OF DRAGGING CODE ##
+
+## EDGE SCROLL CODE ## 
+# yoink: https://github.com/carmel4a/RTS-Camera2D/blob/master/addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd
+
+# Camera speed in px/s.
+export (int) var camera_speed = 450 
+
+# Value meaning how near to the window edge (in px) the mouse must be,
+# to move a view.
+export (int) var camera_margin = 100
+var camera_movement = Vector2()
+
+# Previous mouse position used to count delta of the mouse movement.
+var _prev_mouse_pos = null
+
+func _process(delta):
+
+		
+	var rec = get_viewport().get_visible_rect()
+	var v = get_local_mouse_position() + rec.size/2
+	
+	if rec.size.x - v.x <= camera_margin:
+		camera_movement.x += camera_speed * delta
+	if v.x <= camera_margin:
+		camera_movement.x -= camera_speed * delta
+	if rec.size.y - v.y <= camera_margin:
+		camera_movement.y += camera_speed * delta
+	if v.y <= camera_margin:
+		camera_movement.y -= camera_speed * delta
+		
+	# Update position of the camera.
+	position += camera_movement * get_zoom()
+	
+	# Set camera movement to zero, update old mouse position.
+	camera_movement = Vector2(0,0)
+	_prev_mouse_pos = get_local_mouse_position()
+	
+	
+## END OF EDGE SCROLLING ##
