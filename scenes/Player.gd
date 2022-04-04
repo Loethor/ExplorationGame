@@ -5,10 +5,10 @@ signal GoldUpdated
 
 
 var gold: = 100 setget set_gold
-var gold_structures := 0 setget set_player_gold_structures
+var gold_structures := 0 setget set_gold_structures
 
 
-func set_player_gold_structures(value: int) -> void:
+func set_gold_structures(value: int) -> void:
 	gold_structures = value
 
 func set_gold(value: int) -> void:

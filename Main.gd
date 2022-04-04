@@ -6,7 +6,7 @@ extends Node2D
 #onready var cell = preload("res://scenes/Cell.tscn")
 #onready var cover = preload("res://scenes/Cover.tscn")
 
-onready var baseCell = preload("res://scenes/BaseCell.tscn")
+onready var baseCell = preload("res://scenes/rooms/BaseCell.tscn")
 onready var hiddenLayer = preload("res://scenes/HiddenLayer.tscn")
 #export var baseCell : PackedScene
 
