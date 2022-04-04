@@ -9,3 +9,7 @@ func position_inside_cell(pos:Vector2)->Vector2:
 	randomize()	
 	var rand_index2:int = randi() % options_y.size()
 	return Vector2(options_x[rand_index],options_y[rand_index2])
+
+func random_from_array(array:Array):
+	var rand_index:int = randi() % array.size()
+	return array[rand_index]

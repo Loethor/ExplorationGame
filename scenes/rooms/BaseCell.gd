@@ -5,10 +5,16 @@ onready var array_of_structures:Array = []
 onready var grid_position:Vector2
 onready var distance_from_origin:int
 
+onready var has_top_wall : bool = true
+onready var has_left_wall : bool = true
+onready var has_right_wall : bool = true
+onready var has_bottom_wall : bool = true
+
+
 func init(pos:Vector2) -> void:
 	set_position(pos)
 	
-	grid_position = Vector2(pos.x / 128, pos.y / 128)
+	grid_position = Vector2(pos.x / SignalBus.CELL_SIZE, pos.y / SignalBus.CELL_SIZE)
 #	print("My global position is %s and my grid position is %s" % [position, grid_position])
 	distance_from_origin = abs(grid_position.x)+abs(grid_position.y)
 
