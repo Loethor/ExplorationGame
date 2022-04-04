@@ -19,13 +19,12 @@ func set_position(pos:Vector2) -> void:
 func get_position() -> Vector2:
 	return position
 
-
 func _is_uncovered():
 	SignalBus.emit_signal("SurroundRequired", self)
 	if array_of_structures.size() > 0:
 		activate_structures()
-		
-	
+
+# TODO: add it to Room Manager		
 func add_gold_generator():
 	var gg:Object = goldGenerator.instance()
 	gg.position = Utils.position_inside_cell(to_local(self.position))

@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/tilesets/MysticChroma_Basics.png" type="Texture" id=1]
+[ext_resource path="res://scenes/rooms/BottomRightCell.gd" type="Script" id=2]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -401,6 +402,7 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 14/z_index = 0
 
 [node name="BottomRightCell" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="FloorTileMap" type="TileMap" parent="."]
 tile_set = SubResource( 28 )
