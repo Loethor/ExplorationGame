@@ -5,7 +5,10 @@ onready var rm : Node = roomManager.instance()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
 	add_child(rm)
+
+
 	
 func _on_Timer_timeout() -> void:
 	Player.gold += 15 * Player.gold_structures
