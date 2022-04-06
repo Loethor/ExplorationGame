@@ -10,13 +10,21 @@ onready var has_left_wall : bool = true
 onready var has_right_wall : bool = true
 onready var has_bottom_wall : bool = true
 
+var room_id : int setget set_room_id, get_room_id
+var lb = Label.new()
 
-func init(pos:Vector2) -> void:
+func init(pos:Vector2, id:int) -> void:
 	set_position(pos)
-	
+	room_id = id
 	grid_position = Vector2(pos.x / SignalBus.CELL_SIZE, pos.y / SignalBus.CELL_SIZE)
-#	print("My global position is %s and my grid position is %s" % [position, grid_position])
+
 	distance_from_origin = abs(grid_position.x)+abs(grid_position.y)
+	
+	
+	add_child(lb)
+
+func _process(delta: float) -> void:
+	lb.text = "Room: %s" % room_id
 
 	
 func set_position(pos:Vector2) -> void:
@@ -30,7 +38,7 @@ func _is_uncovered():
 	if array_of_structures.size() > 0:
 		activate_structures()
 
-# TODO: add it to Room Manager		
+# TODO: add it to Generator manager		
 func add_gold_generator():
 	var gg:Object = goldGenerator.instance()
 	gg.position = Utils.position_inside_cell(to_local(self.position))
@@ -43,3 +51,9 @@ func add_gold_generator():
 func activate_structures():
 	for structure in array_of_structures:
 		structure.init()
+
+func set_room_id(value:int)->void:
+	room_id = value
+	
+func get_room_id()->int:
+	return room_id
