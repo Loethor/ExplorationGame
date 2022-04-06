@@ -124,155 +124,118 @@ func _create_covered_cell_on_pos(pos:Vector2, kind_of_cell:PackedScene)->Object:
 	new_cell = _add_structures_to_cell(new_cell)
 	return new_cell
 	
-func _surround_cells(cell:Object)->void:
-	var pos = cell.position
-	var neighbor_positions : Array = calculate_neigh_positions(pos)
-	
+func _surround_cells(cell:Object)->void:	
+##	This function takes one cell recently uncovered and surounds it with new cells.
+##	These new cells need to fit the sprite of their neighbors
 
+
+	# position of to-be-surrounded cell
+	var pos = cell.position 
 	
-	#TODO add logic to other rooms
-	#########
+	# neighbours of the cell 
+	var neighbor_positions : Array = calculate_neigh_positions(pos) 
+	
+	# for each of these neighbors we need to check THEIR neighbors to see
+	# which sprite (room type) fits
 	for side_position in neighbor_positions:
+		# if there is a cell there, we skip (no need to generate new cell on
+		# top of former cell)
 		if positionToCell.has(side_position):
 			continue
+		
+		# neighbors of neighbor
 		var neighbor_neighbor_positions : Array = calculate_neigh_positions(side_position)
 		
 		# 4 arrays (for each position) to be intersected
-		var array1 = []
-		var array2 = []
-		var array3 = []
-		var array4 = []
-		var arrayA = []
+		# arrayT will contain sprites with/without top wall
+		# arrayB will contain sprites with/without bottom wall
+		# arrayL will contain sprites with/without left wall
+		# arrayR will contain sprites with/without right wall
+		var arrayT = []
 		var arrayB = []
-		var arrayC = []
+		var arrayL = []
+		var arrayR = []
+		
+		# now we need to intersect arrays. Only the rooms that are present in 
+		# both arrays will be valid
+		# array TB will be the INTERSECTION of top and bottom arrays
+		# array LR will be the INTERSECTION of left and right arrays
+		# arrayFINAL will be the INTERSECTION of TB and LR arrays
+		var arrayTB = []
+		var arrayLR = []
+		var arrayFINAL = []
 		
 		# check top neigh of neigh of original
 		if positionToCell.has(neighbor_neighbor_positions[0]):
 			# if it has TOP neigh, we need to check if this cell has BOTTOM wall
 			if positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
-				array1 = contains_top_wall
+				arrayT = contains_top_wall
 			else:
-				array1 = missing_top_wall
-#		else:
-#			array1 = all_cells
-			
+				arrayT = missing_top_wall
+		
 		# check bottom neigh of neigh of original
 		if positionToCell.has(neighbor_neighbor_positions[1]):
 			# if it has BOT neigh, we need to check if this cell has TOP wall
 			if positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
-				array2 = contains_bottom_wall
+				arrayB = contains_bottom_wall
 			else:
-				array2 = missing_bottom_wall
-#		else:
-#			array2 = all_cells
+				arrayB = missing_bottom_wall
 			
 		# check left neigh of neigh of original
 		if positionToCell.has(neighbor_neighbor_positions[2]):
 			# if it has left neigh, we need to check if this cell has right wall
 			if positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
-				array3 = contains_left_wall
+				arrayL = contains_left_wall
 			else:
-				array3 = missing_left_wall
-#		else:
-#			array3 = all_cells
+				arrayL = missing_left_wall
+
 	
 		# check right neigh of neigh of original
 		if positionToCell.has(neighbor_neighbor_positions[3]):
 			# if it has right neigh, we need to check if this cell has left wall
 			if positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
-				array4 = contains_right_wall
+				arrayR = contains_right_wall
 			else:
-				array4 = missing_right_wall
-#		else:
-#			array4 = all_cells
+				arrayR = missing_right_wall
+
+		# check if any of the arrays is 0
 		
-#		print("array 1")
-#		print(array1)
-#		print("array 2")
-#		print(array2)
-
-
-		if array1.size() > 0 and array2.size() > 0:
-			arrayA = Utils.intersect_arrays(array1, array2)
+		if arrayT.size() > 0 and arrayB.size() > 0:
+			arrayTB = Utils.intersect_arrays(arrayT, arrayB)
 		else:
-			if array1.size() > array2.size():
-				arrayA = array1
-			elif array2.size() > array1.size():
-				arrayA = array2
+			if arrayT.size() > arrayB.size():
+				arrayTB = arrayT
+			elif arrayB.size() > arrayT.size():
+				arrayTB = arrayB
 			else:
 				pass
 
-		if array3.size() > 0 and array4.size() > 0:
-			arrayB = Utils.intersect_arrays(array3, array4)
+		if arrayL.size() > 0 and arrayR.size() > 0:
+			arrayLR = Utils.intersect_arrays(arrayL, arrayR)
 		else:
-			if array3.size() > array4.size():
-				arrayB = array3
-			elif array4.size() > array3.size():
-				arrayB = array4
+			if arrayL.size() > arrayR.size():
+				arrayLR = arrayL
+			elif arrayR.size() > arrayL.size():
+				arrayLR = arrayR
 			else:
 				pass
 				
-		if arrayA.size() > 0 and arrayB.size() > 0:
-			arrayC = Utils.intersect_arrays(arrayA, arrayB)
+		if arrayTB.size() > 0 and arrayLR.size() > 0:
+			arrayFINAL = Utils.intersect_arrays(arrayTB, arrayLR)
 		else:
-			if arrayA.size() > arrayB.size():
-				arrayC = arrayA
-			elif arrayB.size() > arrayA.size():
-				arrayC = arrayB
+			if arrayTB.size() > arrayLR.size():
+				arrayFINAL = arrayTB
+			elif arrayLR.size() > arrayTB.size():
+				arrayFINAL = arrayLR
 			else:
 				pass
 				
-#		var arrayA = Utils.intersect_arrays(array1, array2)
-##		print("array A")
-##		print(arrayA)
-#		var arrayB = Utils.intersect_arrays(array3, array4)
-#		var arrayC = Utils.intersect_arrays(arrayA, arrayB)
-		
-		print("array C")
-		print(arrayC)
-		
-		#arrayC contains a list of cell types which is compatible with all the neighbor cells
-		var new_cell_type:PackedScene = Utils.random_from_array(arrayC)
+
+		#arrayFINAL contains a list of cell types which is compatible with all 
+		#the neighbor cells
+		var new_cell_type:PackedScene = Utils.random_from_array(arrayFINAL)
 		_create_covered_cell_on_pos(side_position, new_cell_type)
-	
-	#########
-	
-	
-#	var top_pos = neighbor_positions[0]
-#	var bot_pos = neighbor_positions[1]
-#	var left_pos = neighbor_positions[2]
-#	var right_pos = neighbor_positions[3]
-	
-#	var new_cell_type:PackedScene
-#	# if the dictionary doesn't have the position
-#	if !positionToCell.has(top_pos):
-#		if cell.has_top_wall:
-#			new_cell_type = Utils.random_from_array(contains_bottom_wall)	
-#		else:
-#			new_cell_type = Utils.random_from_array(missing_bottom_wall)	
-#		_create_covered_cell_on_pos(top_pos, new_cell_type)
-#
-#	if !positionToCell.has(bot_pos):
-#		if cell.has_bottom_wall:
-#			new_cell_type = Utils.random_from_array(contains_top_wall)	
-#		else:
-#			new_cell_type = Utils.random_from_array(missing_top_wall)	
-#		_create_covered_cell_on_pos(bot_pos, new_cell_type)
-#
-#	if !positionToCell.has(left_pos):
-#		if cell.has_left_wall:
-#			new_cell_type = Utils.random_from_array(contains_right_wall)	
-#		else:
-#			new_cell_type = Utils.random_from_array(missing_right_wall)	
-#		_create_covered_cell_on_pos(left_pos, new_cell_type)
-#
-#	if !positionToCell.has(right_pos):
-#		if cell.has_right_wall:
-#			new_cell_type = Utils.random_from_array(contains_left_wall)	
-#		else:
-#			new_cell_type = Utils.random_from_array(missing_left_wall)	
-#		_create_covered_cell_on_pos(right_pos, new_cell_type)
-	
+
 	return
 
 func check_neighbor_cell(cell:Object, neigh_position:Vector2,
