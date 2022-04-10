@@ -2,7 +2,8 @@ extends Node2D
 
 ### Signals
 signal SurroundRequired
-
+signal DoorOpened(cell,type_of_door)
+signal UpdateLabels
 
 
 ### Game constants

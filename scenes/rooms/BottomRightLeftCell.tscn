@@ -1,8 +1,11 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://assets/tilesets/MysticChroma_Basics.png" type="Texture" id=1]
 [ext_resource path="res://scenes/rooms/BottomRightLeftCell.gd" type="Script" id=2]
 [ext_resource path="res://assets/tilesets/cave_tileset_ASG.png" type="Texture" id=3]
+[ext_resource path="res://scenes/objects/CrackDoorR.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/CrackDoorB.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/objects/CrackDoorL.tscn" type="PackedScene" id=6]
 
 [sub_resource type="OccluderPolygon2D" id=46]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -593,3 +596,14 @@ tile_set = SubResource( 28 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -196612, 1, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 2, 0, -131076, 1, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 2, 0, -65540, 1, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 2, 0, -4, 1, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 2, 0, 65532, 1, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 2, 0, 131068, 1, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 2, 0, 196604, 1, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 2, 0, 262140, 6, 0, 262141, 8, 0, 262142, 8, 0, 262143, 8, 0, 196608, 8, 0, 196609, 8, 0, 196610, 8, 0, 196611, 9, 0 )
+
+[node name="Cracks" type="Node2D" parent="."]
+
+[node name="CrackDoorB" parent="Cracks" instance=ExtResource( 5 )]
+position = Vector2( -32, 96 )
+
+[node name="CrackDoorL" parent="Cracks" instance=ExtResource( 6 )]
+position = Vector2( -128, -32 )
+
+[node name="CrackDoorR" parent="Cracks" instance=ExtResource( 4 )]
+position = Vector2( 96, -32 )

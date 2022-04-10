@@ -11,7 +11,5 @@ func _ready() -> void:
 	if DEBUG:
 		Player.gold += 9999
 
-
-	
 func _on_Timer_timeout() -> void:
 	Player.gold += 15 * Player.gold_structures
