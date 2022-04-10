@@ -1,8 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/rooms/BaseCell.gd" type="Script" id=1]
-[ext_resource path="res://scenes/objects/CrackDoor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/CrackDoorT.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/tilesets/cave_tileset_ASG.png" type="Texture" id=3]
+[ext_resource path="res://scenes/objects/CrackDoorB.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/CrackDoorR.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/objects/CrackDoorL.tscn" type="PackedScene" id=6]
 
 [sub_resource type="OccluderPolygon2D" id=46]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -240,10 +243,19 @@ input_pickable = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 56 )
 
-[node name="Cracks" type="Node" parent="."]
+[node name="Cracks" type="Node2D" parent="."]
 
-[node name="CrackDoor" parent="Cracks" instance=ExtResource( 2 )]
+[node name="CrackDoorT" parent="Cracks" instance=ExtResource( 2 )]
 position = Vector2( -32, -128 )
+
+[node name="CrackDoorB" parent="Cracks" instance=ExtResource( 4 )]
+position = Vector2( -32, 96 )
+
+[node name="CrackDoorL" parent="Cracks" instance=ExtResource( 6 )]
+position = Vector2( -128, -32 )
+
+[node name="CrackDoorR" parent="Cracks" instance=ExtResource( 5 )]
+position = Vector2( 96, -32 )
 
 [connection signal="input_event" from="StaticBody2D" to="." method="_on_StaticBody2D_input_event"]
 [connection signal="mouse_entered" from="StaticBody2D" to="." method="_on_StaticBody2D_mouse_entered"]

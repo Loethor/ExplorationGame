@@ -1,9 +1,11 @@
 extends Node2D
 
 onready var goldGenerator = preload("res://scenes/GoldGenerator.tscn")
+onready var roomManager = $".."
 onready var array_of_structures:Array = []
 onready var grid_position:Vector2
 onready var distance_from_origin:int
+
 
 onready var has_top_wall : bool = true
 onready var has_left_wall : bool = true
@@ -22,19 +24,34 @@ func init(id:int) -> void:
 	grid_position = Vector2(position.x / SignalBus.CELL_SIZE, position.y / SignalBus.CELL_SIZE)
 
 	distance_from_origin = Utils.distance_from_origin(grid_position)
-	
-	if has_node("Cracks"):
-		for crack in $Cracks.get_children():
-			crack.get_child(3).text = "Cost %s" % distance_from_origin
+#	cost_to_unlock = distance_from_origin *5 +1
+		
+#	if has_node("Cracks"):
+#		for crack in $Cracks.get_children():
+#			crack.get_child(3).text = "Cost %s" % roomManager.cost_to_unlock
 	add_child(lb)
-	
 
+func _do_nothing():
+	pass # :D	
+	
+func _open_top():
+	if has_node("Cracks/CrackDoorT"):
+		$Cracks/CrackDoorT._open()
+		
+func _open_bottom():
+	if has_node("Cracks/CrackDoorB"):
+		$Cracks/CrackDoorB._open()
+
+func _open_left():
+	if has_node("Cracks/CrackDoorL"):
+		$Cracks/CrackDoorL._open()
+
+func _open_right():
+	if has_node("Cracks/CrackDoorR"):
+		$Cracks/CrackDoorR._open()
 
 func _process(delta: float) -> void:
 	lb.text = "Room: %s" % room_id
-#
-#func set_position(pos:Vector2) -> void:
-#	position = pos
 
 func _is_uncovered():
 	SignalBus.emit_signal("SurroundRequired", self)
@@ -46,7 +63,7 @@ func add_gold_generator():
 	var gg:Object = goldGenerator.instance()
 	gg.position = Utils.position_inside_cell(to_local(self.position))
 
-	print("there is a chest in %s" % grid_position)
+#	print("there is a chest in %s" % grid_position)
 	
 	add_child(gg)
 	array_of_structures.append(gg)
@@ -61,10 +78,9 @@ func set_room_id(value:int)->void:
 func get_room_id()->int:
 	return room_id
 
-
+#TODO
 func _on_StaticBody2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.doubleclick:
 			$SelectedTileMap.visible = true
 
-#position = get_global_mouse_position().snapped(Vector2(64, 64))

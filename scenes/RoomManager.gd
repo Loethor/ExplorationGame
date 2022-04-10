@@ -37,7 +37,8 @@ onready var emptyCell = preload("res://scenes/rooms/EmptyCell.tscn")
 ### Arrays of cells
 
 # list of all cells (why not?)
-onready var all_cells = [topCell, bottomCell, leftCell, rightCell,
+onready var all_cells = [baseCell,
+						topCell, bottomCell, leftCell, rightCell,
 						topRightCell, topLeftCell, bottomRightCell, bottomLeftCell,
 						bottomRightLeftCell, topRightLeftCell, topBottomLeftCell, topBottomRightCell,
 						emptyCell]
@@ -93,27 +94,143 @@ onready var roomIdToCells : Dictionary = {}
 
 var origin : Vector2 = Vector2.ZERO
 
-var room_count := 0
+var room_count := 0 setget set_room_count
+var cost_to_unlock := 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
+	_update_cost()
 	SignalBus.connect("SurroundRequired", self, "_surround_cells")
+	SignalBus.connect("DoorOpened", self, "_create_adjacent_cell")
 	_create_origin_cell()
+
+
+func set_room_count(value:int):
+	print('updating room count')
+	room_count = value
+	var new_cost = _update_cost()
+	SignalBus.emit_signal('UpdateLabels')
+
+
+func _update_cost():
+	cost_to_unlock = room_count * 5  - 4
+	return cost_to_unlock
 	
 func _create_origin_cell()->void:
 	
 	var origin_cell : Node2D =  _create_cell(origin, baseCell, room_count)
-	room_count += 1
+	print(room_count)
+	self.room_count += 1
+	print(room_count)
 
 	origin_cell.add_gold_generator()
 	origin_cell.activate_structures()
-	_surround_cells(origin_cell)
+#	_surround_cells(origin_cell)
+	
+func _create_adjacent_cell(cell, type_of_door, where=Vector2.ZERO, id=null):
+	
+	var pos:Vector2 = cell.get_position()
+	var neighbor_positions : Array = _calculate_neigh_positions(pos) 
+	
+	var new_pos:Vector2
+	var fun = "_do_nothing"
+	if id == null:
+		id = room_count
+		self.room_count+=1
+	
+	if where == Vector2.ZERO:
+		if type_of_door == "top":
+			new_pos = neighbor_positions[0]
+			fun = "_open_bottom"
+		elif type_of_door == "bottom":
+			new_pos = neighbor_positions[1]
+			fun = "_open_top"		
+		elif type_of_door == "left":
+			new_pos = neighbor_positions[2]
+			fun = "_open_right"
+		elif type_of_door == "right":
+			new_pos = neighbor_positions[3]
+			fun = "_open_left"
+		else:
+			fun = "_do_nothing"
+	else:
+		new_pos = where
+	if positionToCell.has(new_pos):
+		return
+		
+		
+	# Before generating a cell at new_pos, lets check its neighbors
+	var neighbor_neighbor_positions:Array = _calculate_neigh_positions(new_pos)
+	
+	var intersect_array:Array = all_cells
+	
+	# check top cell
+	if positionToCell.has(neighbor_neighbor_positions[0]):
+		if positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
+			intersect_array =_intersect_two_arrays(intersect_array, contains_top_wall) 
+		else:
+			intersect_array =_intersect_two_arrays(intersect_array, missing_top_wall)  
+	# check bottom cell
+	if positionToCell.has(neighbor_neighbor_positions[1]):
+		if positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
+			intersect_array =_intersect_two_arrays(intersect_array, contains_bottom_wall) 
+		else:
+			intersect_array =_intersect_two_arrays(intersect_array, missing_bottom_wall)  
+	# check left cell
+	if positionToCell.has(neighbor_neighbor_positions[2]):
+		if positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
+			intersect_array =_intersect_two_arrays(intersect_array, contains_left_wall) 
+		else:
+			intersect_array =_intersect_two_arrays(intersect_array, missing_left_wall)  
+	# check right cell
+	if positionToCell.has(neighbor_neighbor_positions[3]):
+		if positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
+			intersect_array =_intersect_two_arrays(intersect_array, contains_right_wall) 
+		else:
+			intersect_array =_intersect_two_arrays(intersect_array, missing_right_wall)  
+
+	
+	var cells_to_choose:Array = _intersect_two_arrays(all_cells, intersect_array)
+	if(where != Vector2.ZERO):
+		var reduced_cells_to_choose
+		if randi()%10 < 5 :
+			reduced_cells_to_choose = _intersect_two_arrays(cells_to_choose, cells_three_walls+cells_two_walls+[emptyCell] )
+		else:
+			reduced_cells_to_choose = _intersect_two_arrays(cells_to_choose, cells_three_walls)
+			if reduced_cells_to_choose == []:
+				reduced_cells_to_choose = _intersect_two_arrays(cells_to_choose, cells_two_walls)
+		if reduced_cells_to_choose != []:
+			cells_to_choose = reduced_cells_to_choose
+	
+	var new_cell_type:PackedScene = Utils.random_from_array(cells_to_choose)
+	
+		
+	
+	# create cell and open its door
+	var new_cell = _create_cell(new_pos, new_cell_type, id)
+	new_cell.call(fun)
+	SignalBus.emit_signal('UpdateLabels')
+	
+	# TODO new cells without walls
+	if !new_cell.has_top_wall and !positionToCell.has(neighbor_neighbor_positions[0]):
+		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[0], id)
+	# TODO new cells without walls
+	if !new_cell.has_bottom_wall and !positionToCell.has(neighbor_neighbor_positions[1]):
+		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[1], id)
+	# TODO new cells without walls
+	if !new_cell.has_left_wall and !positionToCell.has(neighbor_neighbor_positions[2]):
+		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[2], id)
+	# TODO new cells without walls
+	if !new_cell.has_right_wall and !positionToCell.has(neighbor_neighbor_positions[3]):
+		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[3], id)
+
+
 
 func _create_cell(pos:Vector2, kind_of_cell:PackedScene, id:int)->Object:
 	var new_cell = kind_of_cell.instance()
 	new_cell.set_position(pos)
+	add_child(new_cell)
 	new_cell.init(id)
 	
 	# add cell to dictionary of positions
@@ -125,7 +242,6 @@ func _create_cell(pos:Vector2, kind_of_cell:PackedScene, id:int)->Object:
 	else:
 		roomIdToCells[id] = [new_cell]
 		
-	add_child(new_cell)
 	return new_cell
 	
 func _add_cover_to_cell(cell:Object)->Object:

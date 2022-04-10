@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/tilesets/grieta_porta.png" type="Texture" id=1]
 [ext_resource path="res://scenes/objects/CrackDoor.gd" type="Script" id=2]
@@ -8,9 +8,6 @@ extents = Vector2( 16, 16 )
 
 [sub_resource type="OccluderPolygon2D" id=62]
 polygon = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=63]
-points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
 [sub_resource type="GDScript" id=64]
 
@@ -26,16 +23,9 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 63 )
 0/shape_one_way = false
-0/shape_one_way_margin = 1.0
-0/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 63 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
 0/z_index = 0
 1/name = "grieta_porta.png 1"
 1/texture = ExtResource( 1 )
@@ -53,8 +43,9 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 1/z_index = 0
 script = SubResource( 64 )
 
-[node name="CrackDoor" type="Node2D"]
+[node name="CrackDoorT" type="Node2D"]
 script = ExtResource( 2 )
+type_of_door = "top"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 16, 16 )
@@ -64,26 +55,25 @@ input_pickable = true
 shape = SubResource( 1 )
 
 [node name="Crack" type="TileMap" parent="."]
-position = Vector2( -32, -96 )
 tile_set = SubResource( 60 )
 cell_size = Vector2( 32, 32 )
 show_collision = true
 format = 1
-tile_data = PoolIntArray( 196609, 0, 0 )
+tile_data = PoolIntArray( 0, 0, 0 )
 
 [node name="Door" type="TileMap" parent="."]
 visible = false
 tile_set = SubResource( 60 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( -196609, 1, 0, 0, 1, 0 )
+tile_data = PoolIntArray( 0, 1, 0 )
 
 [node name="Label" type="Label" parent="."]
 visible = false
-margin_left = 8.0
-margin_top = -16.0
-margin_right = 136.0
-margin_bottom = 46.0
+margin_left = -48.0
+margin_top = 16.0
+margin_right = 80.0
+margin_bottom = 78.0
 text = "Cost: %s"
 align = 1
 valign = 1

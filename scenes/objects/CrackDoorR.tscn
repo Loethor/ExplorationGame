@@ -128,9 +128,9 @@ resource_local_to_scene = true
 9/z_index = 0
 script = SubResource( 64 )
 
-[node name="CrackDoorB" type="Node2D"]
+[node name="CrackDoorR" type="Node2D"]
 script = ExtResource( 1 )
-type_of_door = "bottom"
+type_of_door = "right"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 16, 16 )
@@ -144,7 +144,7 @@ tile_set = SubResource( 60 )
 cell_size = Vector2( 32, 32 )
 show_collision = true
 format = 1
-tile_data = PoolIntArray( 0, 8, 0 )
+tile_data = PoolIntArray( 0, 6, 0 )
 
 [node name="Door" type="TileMap" parent="."]
 visible = false
@@ -152,14 +152,14 @@ tile_set = SubResource( 60 )
 cell_size = Vector2( 32, 32 )
 show_collision = true
 format = 1
-tile_data = PoolIntArray( 0, 9, 0 )
+tile_data = PoolIntArray( 0, 7, 0 )
 
 [node name="Label" type="Label" parent="."]
 visible = false
-margin_left = -48.0
-margin_top = -40.0
-margin_right = 80.0
-margin_bottom = 22.0
+margin_left = -120.0
+margin_top = -16.0
+margin_right = 8.0
+margin_bottom = 46.0
 text = "Cost: %s"
 align = 1
 valign = 1

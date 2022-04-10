@@ -1,8 +1,10 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://assets/tilesets/MysticChroma_Basics.png" type="Texture" id=1]
 [ext_resource path="res://scenes/rooms/TopLeftCell.gd" type="Script" id=2]
 [ext_resource path="res://assets/tilesets/cave_tileset_ASG.png" type="Texture" id=3]
+[ext_resource path="res://scenes/objects/CrackDoorT.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/CrackDoorL.tscn" type="PackedScene" id=5]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -593,3 +595,11 @@ tile_set = SubResource( 45 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( -196612, 0, 0, -196611, 1, 0, -196610, 1, 0, -196609, 1, 0, -262144, 1, 0, -262143, 1, 0, -262142, 1, 0, -262141, 1, 0, -131076, 3, 0, -131075, 8, 0, -131074, 8, 0, -131073, 8, 0, -196608, 8, 0, -196607, 8, 0, -196606, 8, 0, -196605, 8, 0, -65540, 3, 0, -65539, 8, 0, -65538, 8, 0, -65537, 8, 0, -131072, 8, 0, -131071, 8, 0, -131070, 8, 0, -131069, 8, 0, -4, 3, 0, -3, 8, 0, -2, 8, 0, -1, 8, 0, -65536, 8, 0, -65535, 8, 0, -65534, 8, 0, -65533, 8, 0, 65532, 3, 0, 65533, 8, 0, 65534, 8, 0, 65535, 8, 0, 0, 8, 0, 1, 8, 0, 2, 8, 0, 3, 8, 0, 131068, 3, 0, 131069, 8, 0, 131070, 8, 0, 131071, 8, 0, 65536, 8, 0, 65537, 8, 0, 65538, 8, 0, 65539, 8, 0, 196604, 3, 0, 196605, 8, 0, 196606, 8, 0, 196607, 8, 0, 131072, 8, 0, 131073, 8, 0, 131074, 8, 0, 131075, 8, 0, 262140, 3, 0, 262141, 8, 0, 262142, 8, 0, 262143, 8, 0, 196608, 8, 0, 196609, 8, 0, 196610, 8, 0, 196611, 8, 0 )
+
+[node name="Cracks" type="Node2D" parent="."]
+
+[node name="CrackDoorT" parent="Cracks" instance=ExtResource( 4 )]
+position = Vector2( -32, -128 )
+
+[node name="CrackDoorL" parent="Cracks" instance=ExtResource( 5 )]
+position = Vector2( -128, -32 )
