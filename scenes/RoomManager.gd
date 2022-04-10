@@ -98,6 +98,7 @@ var room_count := 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
 	SignalBus.connect("SurroundRequired", self, "_surround_cells")
 	_create_origin_cell()
 	
@@ -112,7 +113,8 @@ func _create_origin_cell()->void:
 
 func _create_cell(pos:Vector2, kind_of_cell:PackedScene, id:int)->Object:
 	var new_cell = kind_of_cell.instance()
-	new_cell.init(pos, id)
+	new_cell.set_position(pos)
+	new_cell.init(id)
 	
 	# add cell to dictionary of positions
 	positionToCell[pos] = new_cell

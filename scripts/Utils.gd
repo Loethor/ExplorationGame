@@ -34,3 +34,6 @@ func intersect_arrays(arr1, arr2):
 		if arr2_dict.get(v, false):
 			in_both_arrays.append(v)
 	return in_both_arrays
+
+func distance_from_origin(pos:Vector2):
+	return abs(pos.x)+abs(pos.y)

@@ -13,25 +13,28 @@ onready var has_bottom_wall : bool = true
 var room_id : int setget set_room_id, get_room_id
 var lb = Label.new()
 
-func init(pos:Vector2, id:int) -> void:
-	set_position(pos)
-	room_id = id
-	grid_position = Vector2(pos.x / SignalBus.CELL_SIZE, pos.y / SignalBus.CELL_SIZE)
+func _ready() -> void:
+	pass
+	
 
-	distance_from_origin = abs(grid_position.x)+abs(grid_position.y)
+func init(id:int) -> void:
+	room_id = id
+	grid_position = Vector2(position.x / SignalBus.CELL_SIZE, position.y / SignalBus.CELL_SIZE)
+
+	distance_from_origin = Utils.distance_from_origin(grid_position)
 	
-	
+	if has_node("Cracks"):
+		for crack in $Cracks.get_children():
+			crack.get_child(3).text = "Cost %s" % distance_from_origin
 	add_child(lb)
+	
+
 
 func _process(delta: float) -> void:
 	lb.text = "Room: %s" % room_id
-
-	
-func set_position(pos:Vector2) -> void:
-	position = pos
-	
-func get_position() -> Vector2:
-	return position
+#
+#func set_position(pos:Vector2) -> void:
+#	position = pos
 
 func _is_uncovered():
 	SignalBus.emit_signal("SurroundRequired", self)
@@ -57,3 +60,11 @@ func set_room_id(value:int)->void:
 	
 func get_room_id()->int:
 	return room_id
+
+
+func _on_StaticBody2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.doubleclick:
+			$SelectedTileMap.visible = true
+
+#position = get_global_mouse_position().snapped(Vector2(64, 64))

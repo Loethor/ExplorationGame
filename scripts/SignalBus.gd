@@ -4,6 +4,7 @@ extends Node2D
 signal SurroundRequired
 
 
+
 ### Game constants
 var CELL_SIZE = 256
 var SPRITE_SIZE = 32

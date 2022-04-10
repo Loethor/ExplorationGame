@@ -7,7 +7,6 @@ export var DEBUG = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
 	add_child(rm)
 	if DEBUG:
 		Player.gold += 9999
