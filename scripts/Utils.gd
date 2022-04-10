@@ -9,3 +9,31 @@ func position_inside_cell(pos:Vector2)->Vector2:
 	randomize()	
 	var rand_index2:int = randi() % options_y.size()
 	return Vector2(options_x[rand_index],options_y[rand_index2])
+
+func random_from_array(array:Array):
+	var rand_index:int = randi() % array.size()
+	return array[rand_index]
+
+func intersect(array1, array2):
+	var intersection = []
+	for item in array1:
+		if array2.has(item):
+			print("intersection found")
+			print(item)
+			intersection.append(item)
+  return intersection
+
+
+func intersect_arrays(arr1, arr2):
+	var arr2_dict = {}
+	for v in arr2:
+		arr2_dict[v] = true
+
+	var in_both_arrays = []
+	for v in arr1:
+		if arr2_dict.get(v, false):
+			in_both_arrays.append(v)
+	return in_both_arrays
+
+func distance_from_origin(pos:Vector2):
+	return abs(pos.x)+abs(pos.y)

@@ -80,6 +80,7 @@ var camera_movement = Vector2()
 
 # Previous mouse position used to count delta of the mouse movement.
 var _prev_mouse_pos = null
+export var dragging_enabled = false
 
 func _process(delta):
 
@@ -97,7 +98,8 @@ func _process(delta):
 		camera_movement.y -= camera_speed * delta
 		
 	# Update position of the camera.
-	position += camera_movement * get_zoom()
+	if dragging_enabled:
+		position += camera_movement * get_zoom()
 	
 	# Set camera movement to zero, update old mouse position.
 	camera_movement = Vector2(0,0)
