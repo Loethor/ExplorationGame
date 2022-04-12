@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://user interface/UI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://CameraScript.gd" type="Script" id=3]
+[ext_resource path="res://CanvasModulateM.gd" type="Script" id=4]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,11 +17,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.168627, 0.133333, 0.0705882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+script = ExtResource( 4 )
+
+[node name="UILayer" type="CanvasLayer" parent="."]
 layer = 100
 
-[node name="UI" parent="CanvasLayer" instance=ExtResource( 2 )]
+[node name="UI" parent="UILayer" instance=ExtResource( 2 )]
 mouse_filter = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -35,7 +43,6 @@ wait_time = 5.0
 autostart = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color( 0.368627, 0.368627, 0.368627, 1 )
+color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -14,6 +14,7 @@ onready var has_bottom_wall : bool = true
 
 var room_id : int setget set_room_id, get_room_id
 var lb = Label.new()
+var is_lighted := false
 
 func _ready() -> void:
 	pass

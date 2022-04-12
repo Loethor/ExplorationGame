@@ -1,5 +1,7 @@
 extends Camera2D
 
+# TODO add average point of cells always inside camera (limit camera)
+
 
 ## ZOOMING CODE ##
 # yoink : https://www.gdquest.com/tutorial/godot/2d/camera-zoom/

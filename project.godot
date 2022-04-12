@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "EditorVCSInterface",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://addons/godot-git-plugin/git_api.gdns"
+} ]
+_global_script_class_icons={
+"GitAPI": ""
+}
+
 [application]
 
 config/name="Exploration Game"
@@ -20,9 +30,13 @@ SignalBus="*res://scripts/SignalBus.gd"
 Utils="*res://scripts/Utils.gd"
 Player="*res://scenes/Player.tscn"
 
+[display]
+
+window/size/always_on_top=true
+
 [gdnative]
 
-singletons=[  ]
+singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 
 [input]
 
