@@ -8,6 +8,15 @@
 script = ExtResource( 1 )
 DEBUG = true
 
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -20
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.168627, 0.133333, 0.0705882, 1 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 100
 
@@ -24,5 +33,9 @@ script = ExtResource( 3 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color( 0.368627, 0.368627, 0.368627, 1 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
