@@ -12,9 +12,10 @@ onready var has_left_wall : bool = true
 onready var has_right_wall : bool = true
 onready var has_bottom_wall : bool = true
 
+export var is_lighted := false
+
 var room_id : int setget set_room_id, get_room_id
 var lb = Label.new()
-var is_lighted := false
 
 func _ready() -> void:
 	pass
@@ -62,7 +63,7 @@ func _is_uncovered():
 # TODO: add it to Generator manager		
 func add_gold_generator():
 	var gg:Object = goldGenerator.instance()
-	gg.position = Utils.position_inside_cell(to_local(self.position))
+	gg.position = Utils.random_position_inside_cell(to_local(self.position))
 
 #	print("there is a chest in %s" % grid_position)
 	
@@ -84,4 +85,6 @@ func _on_StaticBody2D_input_event(viewport: Node, event: InputEvent, shape_idx: 
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.doubleclick:
 			$SelectedTileMap.visible = true
-
+		if event.button_index == BUTTON_LEFT and event.pressed:
+			var mouse_position = get_global_mouse_position()
+			print($CaveTileMapUpdated.world_to_map(mouse_position))

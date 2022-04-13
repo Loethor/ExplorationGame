@@ -19,5 +19,3 @@ shadow_enabled = true
 shadow_gradient_length = 2.0
 shadow_filter = 5
 shadow_filter_smooth = 1.2
-
-[connection signal="tree_entered" from="." to="." method="_on_Torch_tree_entered"]

@@ -301,7 +301,6 @@ format = 1
 tile_data = PoolIntArray( -131075, 1, 0, -131074, 1, 0, -131073, 1, 0, -196608, 1, 0, -196607, 1, 0, -196606, 1, 0, -65539, 1, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -3, 1, 0, -2, 1, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 131069, 1, 0, 131070, 1, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-visible = false
 input_pickable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -322,6 +321,7 @@ position = Vector2( -128, -32 )
 position = Vector2( 96, -32 )
 
 [node name="Torch" parent="." instance=ExtResource( 8 )]
+position = Vector2( 0, 0 )
 
 [connection signal="input_event" from="StaticBody2D" to="." method="_on_StaticBody2D_input_event"]
 [connection signal="mouse_entered" from="StaticBody2D" to="." method="_on_StaticBody2D_mouse_entered"]
