@@ -18,14 +18,42 @@ func _ready() -> void:
 
 # this code places torches with "Q"
 func _input(event: InputEvent) -> void:
+	
+	if event is InputEventMouseButton and DEBUG:
+		if event.button_index == BUTTON_LEFT and event.pressed:
+			var mouse_position = get_global_mouse_position()
+			var snapped_mouse = mouse_position.snapped(Vector2(256,256))
+			if rm.positionToCell.has(snapped_mouse):
+				var cell = rm.positionToCell[snapped_mouse]
+				var local_position = cell.to_local(mouse_position)
+				var map_position = cell.get_child(0).world_to_map(local_position)
+
+				
+				local_position = cell.get_child(0).map_to_world(map_position)
+				var global_position = cell.get_child(0).to_global(local_position)
+
+
+				print("map")
+				print(map_position)
+				print("")
+				print(global_position)
+				print("")
+	
+	
 	if event.is_action_pressed("place_torch"):
 		var mouse_position = get_global_mouse_position()
 		var snapped_mouse = mouse_position.snapped(Vector2(256,256))
 		if rm.positionToCell.has(snapped_mouse):
 			var cell = rm.positionToCell[snapped_mouse]
-			if !cell.is_lighted:
+			if !cell.is_lighted or true:
+				# some position transformation fuckery
+				var local_position = cell.to_local(mouse_position)
+				var map_position = cell.get_child(0).world_to_map(local_position)
+				local_position = cell.get_child(0).map_to_world(map_position)
+				var global_position = cell.get_child(0).to_global(local_position)
+				
 				var new_torch = torch.instance()
-				new_torch.position = cell.to_local(mouse_position)
+				new_torch.position = cell.to_local(global_position) + Vector2(16,16)
 				cell.add_child(new_torch)
 		
 

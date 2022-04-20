@@ -40,11 +40,11 @@ script = ExtResource( 3 )
 
 [node name="Tween" type="Tween" parent="Camera2D"]
 
+[node name="CanvasModulate" type="CanvasModulate" parent="Camera2D"]
+color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

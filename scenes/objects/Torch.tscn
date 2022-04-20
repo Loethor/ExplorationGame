@@ -5,7 +5,6 @@
 [ext_resource path="res://scenes/objects/Torch.gd" type="Script" id=3]
 
 [node name="Torch" type="Node2D"]
-position = Vector2( 16, 16 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -14,7 +13,7 @@ texture = ExtResource( 2 )
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
 texture_scale = 0.35
-energy = 1.8
+energy = 1.5
 shadow_enabled = true
 shadow_gradient_length = 2.0
 shadow_filter = 5

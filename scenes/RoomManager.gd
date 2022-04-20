@@ -212,6 +212,31 @@ func _create_adjacent_cell(cell, type_of_door, where=Vector2.ZERO, id=null):
 	new_cell.call(fun)
 	SignalBus.emit_signal('UpdateLabels')
 	
+	
+	
+	# open all doors for new cells
+	# top
+	if positionToCell.has(neighbor_neighbor_positions[0]):
+		if positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
+			positionToCell[neighbor_neighbor_positions[0]]._open_bottom()
+			new_cell._open_top()
+			
+	if positionToCell.has(neighbor_neighbor_positions[1]):
+		if positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
+			positionToCell[neighbor_neighbor_positions[1]]._open_top()
+			new_cell._open_bottom()
+			
+	if positionToCell.has(neighbor_neighbor_positions[3]):
+		if positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
+			positionToCell[neighbor_neighbor_positions[3]]._open_left()
+			new_cell._open_right()
+			
+	if positionToCell.has(neighbor_neighbor_positions[2]):
+		if positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
+			positionToCell[neighbor_neighbor_positions[2]]._open_right()
+			new_cell._open_left()		
+					
+	
 	# TODO new cells without walls
 	if !new_cell.has_top_wall and !positionToCell.has(neighbor_neighbor_positions[0]):
 		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[0], id)

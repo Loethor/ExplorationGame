@@ -85,6 +85,3 @@ func _on_StaticBody2D_input_event(viewport: Node, event: InputEvent, shape_idx: 
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.doubleclick:
 			$SelectedTileMap.visible = true
-		if event.button_index == BUTTON_LEFT and event.pressed:
-			var mouse_position = get_global_mouse_position()
-			print($CaveTileMapUpdated.world_to_map(mouse_position))
