@@ -38,7 +38,11 @@ func _input(event: InputEvent) -> void:
 				print("")
 				print(global_position)
 				print("")
-	
+	if event.is_action_pressed("menu"):
+		if $GUI/Menu.visible:
+			$GUI/Menu.hide()
+		else:
+			$GUI/Menu.show()
 	
 	if event.is_action_pressed("place_torch"):
 		var mouse_position = get_global_mouse_position()
@@ -55,7 +59,18 @@ func _input(event: InputEvent) -> void:
 				var new_torch = torch.instance()
 				new_torch.position = cell.to_local(global_position) + Vector2(16,16)
 				cell.add_child(new_torch)
-		
+
 
 func _on_Timer_timeout() -> void:
 	Player.gold += 15 * Player.gold_structures
+
+func _on_Back_pressed() -> void:
+	$GUI/Menu.hide()
+
+func _on_NewGame_pressed() -> void:
+	get_tree().change_scene("res://Main.tscn")
+
+
+func _on_Options_pressed() -> void:
+	var options = load("res://userInterface/Options.tscn").instance()
+	$GUI.add_child(options)

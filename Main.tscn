@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://user interface/UI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://userInterface/UI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://CameraScript.gd" type="Script" id=3]
 [ext_resource path="res://CanvasModulateM.gd" type="Script" id=4]
 [ext_resource path="res://assets/sprites/torch 32x32.png" type="Texture" id=5]
+[ext_resource path="res://assets/jessicadinh_metal_diffuse.jpg" type="Texture" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -27,11 +28,146 @@ __meta__ = {
 color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 script = ExtResource( 4 )
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="GUI" type="CanvasLayer" parent="."]
 layer = 100
 
-[node name="UI" parent="UILayer" instance=ExtResource( 2 )]
+[node name="UI" parent="GUI" instance=ExtResource( 2 )]
 mouse_filter = 2
+
+[node name="Menu" type="Control" parent="GUI"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -192.0
+margin_top = 64.0
+margin_right = 192.0
+margin_bottom = -88.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GUI/Menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Menu"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -192.0
+margin_top = 30.0
+margin_right = 192.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer"]
+margin_right = 384.0
+margin_bottom = 14.0
+text = "GAME MENU"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Menu/VBoxContainer"]
+margin_top = 18.0
+margin_right = 384.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 0, 35 )
+
+[node name="NewGame" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 57.0
+margin_right = 317.0
+margin_bottom = 87.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/NewGame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "New Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveGame" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 91.0
+margin_right = 317.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/SaveGame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Save Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadGame" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 125.0
+margin_right = 317.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/LoadGame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Load Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 159.0
+margin_right = 317.0
+margin_bottom = 189.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Options"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 193.0
+margin_right = 317.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/Back"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Back"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -47,4 +183,7 @@ color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 wait_time = 5.0
 autostart = true
 
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/Back" to="." method="_on_Back_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
