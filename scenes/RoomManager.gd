@@ -101,7 +101,6 @@ var cost_to_unlock := 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_update_cost()
-	SignalBus.connect("SurroundRequired", self, "_surround_cells")
 	SignalBus.connect("DoorOpened", self, "_create_adjacent_cell")
 	_create_origin_cell()
 
@@ -126,7 +125,7 @@ func _create_origin_cell()->void:
 
 	origin_cell.add_gold_generator()
 	origin_cell.activate_structures()
-#	_surround_cells(origin_cell)
+
 	
 func _create_adjacent_cell(cell, type_of_door, where=Vector2.ZERO, id=null):
 	
@@ -214,7 +213,7 @@ func _create_adjacent_cell(cell, type_of_door, where=Vector2.ZERO, id=null):
 	
 	
 	
-	# open all doors for new cells
+	# open all doors for new cells TODO only when lighting
 	# top
 	if positionToCell.has(neighbor_neighbor_positions[0]):
 		if positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
@@ -266,6 +265,7 @@ func _create_cell(pos:Vector2, kind_of_cell:PackedScene, id:int)->Object:
 		roomIdToCells[id].append(new_cell)
 	else:
 		roomIdToCells[id] = [new_cell]
+
 		
 	return new_cell
 	
@@ -280,170 +280,6 @@ func _add_structures_to_cell(cell:Object)->Object:
 			cell.add_gold_generator()
 	return cell
 	
-func _create_covered_cell_on_pos(pos:Vector2, kind_of_cell:PackedScene, id:int)->Object:
-	var new_cell : Object = _create_cell(pos, kind_of_cell, id)
-	new_cell = _add_cover_to_cell(new_cell)
-	new_cell = _add_structures_to_cell(new_cell)
-	return new_cell
-	
-func _surround_cells(cell:Object)->void:	
-##	This function takes one cell recently uncovered and surounds it with new cells.
-##	These new cells need to fit the sprite of their neighbors
-
-	# position of to-be-surrounded cell
-	var pos = cell.position 
-	
-	# neighbours of the cell 
-	var neighbor_positions : Array = _calculate_neigh_positions(pos) 
-	
-	# for each of these neighbors we need to check THEIR neighbors to see
-	# which sprite (room type) fits
-	for side_position in neighbor_positions:
-		# if there is a cell there, we skip (no need to generate new cell on
-		# top of former cell)
-		if positionToCell.has(side_position):
-			continue
-		
-		# neighbors of neighbor
-		var neighbor_neighbor_positions : Array = _calculate_neigh_positions(side_position)
-		
-		# 4 arrays (for each position) to be intersected
-		# arrayT will contain sprites with/without top wall
-		# arrayB will contain sprites with/without bottom wall
-		# arrayL will contain sprites with/without left wall
-		# arrayR will contain sprites with/without right wall
-		var arrayT = []
-		var arrayB = []
-		var arrayL = []
-		var arrayR = []
-		
-		# now we need to intersect arrays. Only the rooms that are present in 
-		# both arrays will be valid
-		# array TB will be the INTERSECTION of top and bottom arrays
-		# array LR will be the INTERSECTION of left and right arrays
-		# arrayFINAL will be the INTERSECTION of TB and LR arrays
-		var arrayTB = []
-		var arrayLR = []
-		var arrayFINAL = []
-		
-		# id initialiced to 0
-		var id = room_count
-		var new_id = 0
-		var discarded_ids = []
-		
-		### this could be refactored but I don't have the patience ###
-		# check top neigh of neigh of original
-		if positionToCell.has(neighbor_neighbor_positions[0]):
-			# if it has TOP neigh, we need to check if this cell has BOTTOM wall
-			if positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
-				arrayT = contains_top_wall
-			else:
-				arrayT = missing_top_wall
-				# receives id from neighbor without wall
-				new_id = positionToCell[neighbor_neighbor_positions[0]].get_room_id()
-				id = _compare_id_and_discard(new_id, id, discarded_ids)
-#				if  new_id < id:
-#					discarded_ids.append(id)
-#					id = new_id
-#				elif new_id > id :
-#					discarded_ids.append(new_id)
-
-		
-		# check bottom neigh of neigh of original
-		if positionToCell.has(neighbor_neighbor_positions[1]):
-			# if it has BOT neigh, we need to check if this cell has TOP wall
-			if positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
-				arrayB = contains_bottom_wall
-			else:
-				arrayB = missing_bottom_wall
-				# receives id from neighbor without wall
-				new_id = positionToCell[neighbor_neighbor_positions[1]].get_room_id()
-				id = _compare_id_and_discard(new_id, id, discarded_ids)
-#				if  new_id < id:
-#					discarded_ids.append(id)
-#					id = new_id
-#				elif new_id > id :
-#					discarded_ids.append(new_id)
-
-			
-		# check left neigh of neigh of original
-		if positionToCell.has(neighbor_neighbor_positions[2]):
-			# if it has left neigh, we need to check if this cell has right wall
-			if positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
-				arrayL = contains_left_wall
-			else:
-				arrayL = missing_left_wall
-				# receives id from neighbor without wall
-				new_id = positionToCell[neighbor_neighbor_positions[2]].get_room_id()
-				id = _compare_id_and_discard(new_id, id, discarded_ids)
-#				if  new_id < id:
-#					discarded_ids.append(id)
-#					id = new_id
-#				elif new_id > id :
-#					discarded_ids.append(new_id)
-	
-		# check right neigh of neigh of original
-		if positionToCell.has(neighbor_neighbor_positions[3]):
-			# if it has right neigh, we need to check if this cell has left wall
-			if positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
-				arrayR = contains_right_wall
-			else:
-				arrayR = missing_right_wall
-				# receives id from neighbor without wall
-				new_id = positionToCell[neighbor_neighbor_positions[3]].get_room_id()
-				id = _compare_id_and_discard(new_id, id, discarded_ids)
-#				if  new_id < id:
-#					discarded_ids.append(id)
-#					id = new_id
-#				elif new_id > id :
-#					discarded_ids.append(new_id)
-
-					
-		# check if any of the arrays is 0
-		arrayTB = _intersect_two_arrays(arrayT, arrayB)
-		arrayLR = _intersect_two_arrays(arrayL, arrayR)
-		
-		#arrayFINAL contains a list of cell types which is compatible with all 
-		#the neighbor cells
-		arrayFINAL = _intersect_two_arrays(arrayTB, arrayLR)
-
-		
-		room_count += 1
-		
-
-		if discarded_ids.size() > 0:
-			_merge_rooms(discarded_ids, id)
-
-		# once you have the final id, you can futher filter room options
-		
-
-		if roomIdToCells.has(id):
-			var arrayMaybeFinal = []
-			if roomIdToCells[id].size() >= 2 and roomIdToCells[id].size() <= 4:
-				var rng = randi() % 10
-				if rng < 1:
-					arrayMaybeFinal = _intersect_two_arrays(arrayFINAL, cells_two_walls + cells_three_walls + [emptyCell])
-				else:
-					arrayMaybeFinal = _intersect_two_arrays(arrayFINAL, cells_two_walls + cells_three_walls)
-					
-			elif roomIdToCells[id].size() > 4:
-				var rng = randi() % 10
-				if rng < 1:
-					arrayMaybeFinal = _intersect_two_arrays(arrayFINAL, cells_three_walls + [emptyCell])
-				else:
-					arrayMaybeFinal = _intersect_two_arrays(arrayFINAL, cells_three_walls)
-					
-			if arrayMaybeFinal.size() > 0:
-				arrayFINAL = arrayMaybeFinal
-
-				
-
-		
-		var new_cell_type:PackedScene = Utils.random_from_array(arrayFINAL)
-		_create_covered_cell_on_pos(side_position, new_cell_type, id)
-	return
-	
-	
 func _intersect_two_arrays(arrayA:Array, arrayB:Array)->Array:
 	var arrayC : Array
 	if arrayA.size() > 0 and arrayB.size() > 0:
@@ -455,24 +291,16 @@ func _intersect_two_arrays(arrayA:Array, arrayB:Array)->Array:
 			arrayC = arrayB
 	return arrayC
 			
-	
-func _compare_id_and_discard(new_id:int, id:int, discarded_ids:Array)->int:
-	if  new_id < id:
-		discarded_ids.append(id)
-		id = new_id
-	elif new_id > id :
-		discarded_ids.append(new_id)
-	return id
 
-func check_neighbor_cell(cell:Object, neigh_position:Vector2,
-						 wall_to_check, contains_array:Array,
-						missing_array:Array):
-	var new_cell_type:PackedScene						
-	if cell.wall_to_check:
-		new_cell_type = Utils.random_from_array(contains_array)
-	else:
-		new_cell_type = Utils.random_from_array(missing_array)
-	
+#func check_neighbor_cell(cell:Object, neigh_position:Vector2,
+#						 wall_to_check, contains_array:Array,
+#						missing_array:Array):
+#	var new_cell_type:PackedScene						
+#	if cell.wall_to_check:
+#		new_cell_type = Utils.random_from_array(contains_array)
+#	else:
+#		new_cell_type = Utils.random_from_array(missing_array)
+#
 		
 func _calculate_neigh_positions(pos:Vector2):
 	var top_pos : Vector2 = Vector2(pos.x, pos.y - SignalBus.CELL_SIZE)
@@ -481,13 +309,4 @@ func _calculate_neigh_positions(pos:Vector2):
 	var right_pos : Vector2 = Vector2(pos.x + SignalBus.CELL_SIZE, pos.y)
 	return [top_pos, bot_pos, left_pos, right_pos]
 
-func _merge_rooms(discarded_ids:Array, new_id:int):
-	for discarded_id in discarded_ids:
-		if roomIdToCells.has(discarded_id):
-			var cell_list = roomIdToCells[discarded_id]
-			for cell in cell_list:
-				cell.room_id = new_id
-				roomIdToCells[new_id].append(cell)
-			roomIdToCells[discarded_id] = []
-			
 

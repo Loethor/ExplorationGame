@@ -95,7 +95,7 @@ func _notification(what):
 
 func _process(delta):
 
-		#TODO fix bug
+
 	var rec = get_viewport().get_visible_rect()
 	rec.size *= get_zoom()
 	var v = get_local_mouse_position() + rec.size/2
