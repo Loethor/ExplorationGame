@@ -2,18 +2,19 @@
 
 [ext_resource path="res://assets/sprites/mascara sombras.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/torch 32x32.png" type="Texture" id=2]
-[ext_resource path="res://assets/sprites/fondo gris.png" type="Texture" id=3]
+[ext_resource path="res://scenes/objects/Torch.gd" type="Script" id=3]
 
 [node name="Torch" type="Node2D"]
-
-[node name="FondoGris" type="Sprite" parent="."]
-visible = false
-scale = Vector2( 16, 15.875 )
-texture = ExtResource( 3 )
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
-texture_scale = 0.1
+texture_scale = 0.35
+energy = 1.5
+shadow_enabled = true
+shadow_gradient_length = 2.0
+shadow_filter = 5
+shadow_filter_smooth = 1.2

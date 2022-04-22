@@ -279,17 +279,6 @@ polygon = PoolVector2Array( 23.5443, 31.9138, 22.4676, 29.7603, 22.6022, 27.4724
 [node name="TopRightLeftCell" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Cracks" type="Node2D" parent="."]
-
-[node name="CrackDoorT" parent="Cracks" instance=ExtResource( 5 )]
-position = Vector2( -32, -128 )
-
-[node name="CrackDoorL" parent="Cracks" instance=ExtResource( 7 )]
-position = Vector2( -128, -32 )
-
-[node name="CrackDoorR" parent="Cracks" instance=ExtResource( 4 )]
-position = Vector2( 96, -32 )
-
 [node name="CaveTileMapUpdated" type="TileMap" parent="."]
 tile_set = SubResource( 73 )
 cell_size = Vector2( 32, 32 )
@@ -305,3 +294,14 @@ collision_layer = 0
 collision_mask = 0
 format = 1
 tile_data = PoolIntArray( -131075, 1, 0, -131074, 1, 0, -131073, 1, 0, -196608, 1, 0, -196607, 1, 0, -196606, 1, 0, -65539, 1, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -3, 1, 0, -2, 1, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 131069, 1, 0, 131070, 1, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0 )
+
+[node name="Cracks" type="Node2D" parent="."]
+
+[node name="CrackDoorT" parent="Cracks" instance=ExtResource( 5 )]
+position = Vector2( -32, -128 )
+
+[node name="CrackDoorL" parent="Cracks" instance=ExtResource( 7 )]
+position = Vector2( -128, -32 )
+
+[node name="CrackDoorR" parent="Cracks" instance=ExtResource( 4 )]
+position = Vector2( 96, -32 )

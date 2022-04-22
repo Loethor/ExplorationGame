@@ -1,5 +1,7 @@
 extends Camera2D
 
+# TODO add average point of cells always inside camera (limit camera)
+
 
 ## ZOOMING CODE ##
 # yoink : https://www.gdquest.com/tutorial/godot/2d/camera-zoom/
@@ -75,18 +77,29 @@ export (int) var camera_speed = 450
 
 # Value meaning how near to the window edge (in px) the mouse must be,
 # to move a view.
-export (int) var camera_margin = 100
+export (int) var camera_margin = 50
 var camera_movement = Vector2()
 
 # Previous mouse position used to count delta of the mouse movement.
 var _prev_mouse_pos = null
-export var dragging_enabled = false
+export var scrolling_enabled = false
+
+
+# sanity. if mouse leaves the window the camera won't move
+func _notification(what):
+	match what:
+		MainLoop.NOTIFICATION_WM_MOUSE_EXIT:
+			scrolling_enabled = false
+		MainLoop.NOTIFICATION_WM_MOUSE_ENTER:
+			scrolling_enabled = true
 
 func _process(delta):
 
-		#TODO fix bug
+
 	var rec = get_viewport().get_visible_rect()
+	rec.size *= get_zoom()
 	var v = get_local_mouse_position() + rec.size/2
+#	print(rec.size,get_local_mouse_position() )
 	
 	if rec.size.x - v.x <= camera_margin:
 		camera_movement.x += camera_speed * delta
@@ -98,7 +111,7 @@ func _process(delta):
 		camera_movement.y -= camera_speed * delta
 		
 	# Update position of the camera.
-	if dragging_enabled:
+	if scrolling_enabled:
 		position += camera_movement * get_zoom()
 	
 	# Set camera movement to zero, update old mouse position.
