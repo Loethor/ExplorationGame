@@ -3,7 +3,7 @@ extends Node2D
 onready var roomManager = preload("res://scenes/RoomManager.tscn")
 onready var rm : Node = roomManager.instance()
 
-onready var torch = preload("res://scenes/objects/Torch.tscn")
+onready var torch = preload("res://scenes/objects/torch/Torch.tscn")
 
 
 export var DEBUG = false
@@ -64,13 +64,20 @@ func _input(event: InputEvent) -> void:
 func _on_Timer_timeout() -> void:
 	Player.gold += 15 * Player.gold_structures
 
-func _on_Back_pressed() -> void:
+func _on_ResumeGame_pressed() -> void:
 	$GUI/Menu.hide()
 
-func _on_NewGame_pressed() -> void:
+func _on_RestartGame_pressed() -> void:
+	# TODO restart game values
 	get_tree().change_scene("res://Main.tscn")
 
-
 func _on_Options_pressed() -> void:
-	var options = load("res://userInterface/Options.tscn").instance()
+	var options = load("res://menus/Options.tscn").instance()
 	$GUI.add_child(options)
+
+func _on_MainMenu_pressed() -> void:
+	# TODO add confirmation
+	get_tree().change_scene("res://menus/MainMenu.tscn")
+
+func _on_QuitToDesktop_pressed() -> void:
+	get_tree().quit()

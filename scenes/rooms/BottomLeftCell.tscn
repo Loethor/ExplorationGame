@@ -3,8 +3,9 @@
 [ext_resource path="res://assets/tilesets/tileset mapa 2.0.png" type="Texture" id=1]
 [ext_resource path="res://scenes/rooms/BottomLeftCell.gd" type="Script" id=2]
 [ext_resource path="res://assets/tilesets/cave_tileset_ASG.png" type="Texture" id=3]
-[ext_resource path="res://scenes/objects/CrackDoorB.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/objects/CrackDoorL.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/objects/crackdoor/CrackDoorB.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/crackdoor/CrackDoorL.tscn" type="PackedScene" id=5]
+
 
 [sub_resource type="OccluderPolygon2D" id=74]
 polygon = PoolVector2Array( 32, 6.92443, 32, 7.6041, 25.7651, 7.74959, 20.655, 14.0576, 23.3468, 20.3832, 20.4067, 24.4945, 21.7317, 31.8232, 0.0630798, 31.9578, 0.0630798, 0, 32, 0 )

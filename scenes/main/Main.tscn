@@ -1,16 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://userInterface/UI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://CameraScript.gd" type="Script" id=3]
-[ext_resource path="res://CanvasModulateM.gd" type="Script" id=4]
-[ext_resource path="res://assets/sprites/torch 32x32.png" type="Texture" id=5]
-[ext_resource path="res://assets/jessicadinh_metal_diffuse.jpg" type="Texture" id=6]
+[ext_resource path="res://CameraScript.gd" type="Script" id=1]
+[ext_resource path="res://scenes/main/Main.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/torch/assets/torch 32x32.png" type="Texture" id=3]
+[ext_resource path="res://ui/UI.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/jessicadinh_metal_diffuse.jpg-67ae332a105b59fd666f24d2ac8293f4.stex"
 
 [node name="Main" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 DEBUG = true
-torch_sprite = ExtResource( 5 )
+torch_sprite = ExtResource( 3 )
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -20
@@ -26,12 +28,11 @@ __meta__ = {
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Background"]
 color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
-script = ExtResource( 4 )
 
 [node name="GUI" type="CanvasLayer" parent="."]
 layer = 100
 
-[node name="UI" parent="GUI" instance=ExtResource( 2 )]
+[node name="UI" parent="GUI" instance=ExtResource( 5 )]
 mouse_filter = 2
 
 [node name="Menu" type="Control" parent="GUI"]
@@ -50,7 +51,7 @@ __meta__ = {
 [node name="NinePatchRect" type="NinePatchRect" parent="GUI/Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 6 )
+texture = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -79,7 +80,7 @@ margin_right = 384.0
 margin_bottom = 53.0
 rect_min_size = Vector2( 0, 35 )
 
-[node name="NewGame" type="Button" parent="GUI/Menu/VBoxContainer"]
+[node name="ResumeGame" type="Button" parent="GUI/Menu/VBoxContainer"]
 margin_left = 67.0
 margin_top = 57.0
 margin_right = 317.0
@@ -87,10 +88,28 @@ margin_bottom = 87.0
 rect_min_size = Vector2( 250, 30 )
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/NewGame"]
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/ResumeGame"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "New Game"
+text = "Resume Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 91.0
+margin_right = 317.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Options"
 align = 1
 valign = 1
 __meta__ = {
@@ -99,9 +118,9 @@ __meta__ = {
 
 [node name="SaveGame" type="Button" parent="GUI/Menu/VBoxContainer"]
 margin_left = 67.0
-margin_top = 91.0
+margin_top = 125.0
 margin_right = 317.0
-margin_bottom = 121.0
+margin_bottom = 155.0
 rect_min_size = Vector2( 250, 30 )
 size_flags_horizontal = 4
 
@@ -117,9 +136,9 @@ __meta__ = {
 
 [node name="LoadGame" type="Button" parent="GUI/Menu/VBoxContainer"]
 margin_left = 67.0
-margin_top = 125.0
+margin_top = 159.0
 margin_right = 317.0
-margin_bottom = 155.0
+margin_bottom = 189.0
 rect_min_size = Vector2( 250, 30 )
 size_flags_horizontal = 4
 
@@ -133,25 +152,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="Button" parent="GUI/Menu/VBoxContainer"]
-margin_left = 67.0
-margin_top = 159.0
-margin_right = 317.0
-margin_bottom = 189.0
-rect_min_size = Vector2( 250, 30 )
-size_flags_horizontal = 4
-
-[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/Options"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Options"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Back" type="Button" parent="GUI/Menu/VBoxContainer"]
+[node name="RestartGame" type="Button" parent="GUI/Menu/VBoxContainer"]
 margin_left = 67.0
 margin_top = 193.0
 margin_right = 317.0
@@ -159,10 +160,46 @@ margin_bottom = 223.0
 rect_min_size = Vector2( 250, 30 )
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/Back"]
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/RestartGame"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Back"
+text = "Restart Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 227.0
+margin_right = 317.0
+margin_bottom = 257.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/MainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Main Menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitToDesktop" type="Button" parent="GUI/Menu/VBoxContainer"]
+margin_left = 67.0
+margin_top = 261.0
+margin_right = 317.0
+margin_bottom = 291.0
+rect_min_size = Vector2( 250, 30 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="GUI/Menu/VBoxContainer/QuitToDesktop"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Quit To Desktop"
 align = 1
 valign = 1
 __meta__ = {
@@ -172,7 +209,7 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
-script = ExtResource( 3 )
+script = ExtResource( 1 )
 
 [node name="Tween" type="Tween" parent="Camera2D"]
 
@@ -183,7 +220,9 @@ color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 wait_time = 5.0
 autostart = true
 
-[connection signal="pressed" from="GUI/Menu/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/ResumeGame" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Options" to="." method="_on_Options_pressed"]
-[connection signal="pressed" from="GUI/Menu/VBoxContainer/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/RestartGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/MainMenu" to="." method="_on_MainMenu_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/QuitToDesktop" to="." method="_on_QuitToDesktop_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

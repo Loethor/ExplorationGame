@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/UI.gd" type="Script" id=1]
+[ext_resource path="res://ui/assets/paper_socket.png" type="Texture" id=2]
+[ext_resource path="res://ui/assets/paper.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 96, 96 )
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoldLabel" type="Label" parent="."]
+margin_left = 56.0
+margin_top = 56.0
+margin_right = 96.0
+margin_bottom = 70.0
+text = "Gold: %s"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuildingBar" type="Control" parent="."]
+margin_left = 64.0
+margin_top = 472.0
+margin_right = 408.0
+margin_bottom = 504.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BuildingBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 96, 96 )
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BuildingBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+custom_constants/separation = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="BuildingBar/HBoxContainer"]
+margin_right = 48.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel2" type="Panel" parent="BuildingBar/HBoxContainer"]
+margin_left = 56.0
+margin_right = 104.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel3" type="Panel" parent="BuildingBar/HBoxContainer"]
+margin_left = 112.0
+margin_right = 160.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel4" type="Panel" parent="BuildingBar/HBoxContainer"]
+margin_left = 168.0
+margin_right = 216.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel5" type="Panel" parent="BuildingBar/HBoxContainer"]
+margin_left = 224.0
+margin_right = 272.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Panel6" type="Panel" parent="BuildingBar/HBoxContainer"]
+margin_left = 280.0
+margin_right = 328.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 1 )

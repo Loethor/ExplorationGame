@@ -11,5 +11,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
+func _toggle_building_bar():
+	$BuildingBar.visible = !$BuildingBar.visible
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("building_menu"):
+		_toggle_building_bar()
+
 func update_interface() -> void:
 	gold.text = "Gold: %s" % Player.gold

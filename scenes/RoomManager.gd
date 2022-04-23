@@ -2,7 +2,6 @@ extends Node
 
 # Base room
 onready var baseCell = preload("res://scenes/rooms/BaseCell.tscn")
-onready var hiddenLayer = preload("res://scenes/HiddenLayer.tscn")
 
 ### Other rooms
 
@@ -268,11 +267,6 @@ func _create_cell(pos:Vector2, kind_of_cell:PackedScene, id:int)->Object:
 
 		
 	return new_cell
-	
-func _add_cover_to_cell(cell:Object)->Object:
-	var hidden_layer = hiddenLayer.instance()
-	cell.add_child(hidden_layer)
-	return cell
 	
 func _add_structures_to_cell(cell:Object)->Object:
 	#TODO add more structures
