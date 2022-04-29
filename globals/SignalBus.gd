@@ -5,9 +5,14 @@ signal DoorOpened(cell,type_of_door)
 signal UpdateLabels
 signal LimitsChanged
 
+
 ### Game constants
-var CELL_SIZE = 256
-var SPRITE_SIZE = 32
+const CELL_SIZE = 256
+const SPRITE_SIZE = 32
+
+### Game variables
+var current_zoom = Vector2(1,1)
+
 
 ### Spawns constants
 var gold_chance = 20

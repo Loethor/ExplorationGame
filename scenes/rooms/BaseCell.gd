@@ -26,6 +26,7 @@ func init(id:int) -> void:
 	grid_position = Vector2(position.x / SignalBus.CELL_SIZE, position.y / SignalBus.CELL_SIZE)
 
 	distance_from_origin = Utils.distance_from_origin(grid_position)
+
 #	cost_to_unlock = distance_from_origin *5 +1
 		
 #	if has_node("Cracks"):
@@ -54,11 +55,6 @@ func _open_right():
 
 func _process(delta: float) -> void:
 	lb.text = "Room: %s" % room_id
-
-func _is_uncovered():
-	SignalBus.emit_signal("SurroundRequired", self)
-	if array_of_structures.size() > 0:
-		activate_structures()
 
 # TODO: add it to Generator manager		
 func add_gold_generator():

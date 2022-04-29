@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/UI.gd" type="Script" id=1]
 [ext_resource path="res://ui/assets/paper_socket.png" type="Texture" id=2]
 [ext_resource path="res://ui/assets/paper.png" type="Texture" id=3]
+[ext_resource path="res://scenes/objects/torch/Torch.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/PanelControl.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 2 )
@@ -38,13 +40,12 @@ __meta__ = {
 [node name="NinePatchRect" type="NinePatchRect" parent="BuildingBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 32.0
+margin_right = -136.0
+margin_bottom = 16.0
 texture = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 96, 96 )
 patch_margin_left = 32
-patch_margin_top = 32
 patch_margin_right = 32
-patch_margin_bottom = 32
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -60,48 +61,43 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="BuildingBar/HBoxContainer"]
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )
+
+[node name="Torch" parent="BuildingBar/HBoxContainer/Panel" instance=ExtResource( 4 )]
 
 [node name="Panel2" type="Panel" parent="BuildingBar/HBoxContainer"]
-margin_left = 56.0
-margin_right = 104.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+margin_left = 40.0
+margin_right = 72.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
 
 [node name="Panel3" type="Panel" parent="BuildingBar/HBoxContainer"]
-margin_left = 112.0
-margin_right = 160.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+margin_left = 80.0
+margin_right = 112.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
 
 [node name="Panel4" type="Panel" parent="BuildingBar/HBoxContainer"]
-margin_left = 168.0
-margin_right = 216.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+margin_left = 120.0
+margin_right = 152.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
 
 [node name="Panel5" type="Panel" parent="BuildingBar/HBoxContainer"]
-margin_left = 224.0
-margin_right = 272.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-size_flags_vertical = 0
-custom_styles/panel = SubResource( 1 )
-
-[node name="Panel6" type="Panel" parent="BuildingBar/HBoxContainer"]
-margin_left = 280.0
-margin_right = 328.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+margin_left = 160.0
+margin_right = 192.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )

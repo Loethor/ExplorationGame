@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/objects/goldvein/assets/mina_ouro.png" type="Texture" id=1]
+
+[node name="GoldVein" type="Node2D"]
+
+[node name="MinaOuro" type="Sprite" parent="."]
+position = Vector2( 16, 16 )
+texture = ExtResource( 1 )

@@ -207,6 +207,7 @@ __meta__ = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 128, 128 )
 current = true
 smoothing_enabled = true
 script = ExtResource( 1 )
@@ -222,7 +223,7 @@ autostart = true
 
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/ResumeGame" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/Options" to="." method="_on_Options_pressed"]
-[connection signal="pressed" from="GUI/Menu/VBoxContainer/RestartGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="GUI/Menu/VBoxContainer/RestartGame" to="." method="_on_RestartGame_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/MainMenu" to="." method="_on_MainMenu_pressed"]
 [connection signal="pressed" from="GUI/Menu/VBoxContainer/QuitToDesktop" to="." method="_on_QuitToDesktop_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

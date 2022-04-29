@@ -69,7 +69,7 @@ func _on_ResumeGame_pressed() -> void:
 
 func _on_RestartGame_pressed() -> void:
 	# TODO restart game values
-	get_tree().change_scene("res://Main.tscn")
+	get_tree().change_scene("res://scenes/main/Main.tscn")
 
 func _on_Options_pressed() -> void:
 	var options = load("res://menus/Options.tscn").instance()

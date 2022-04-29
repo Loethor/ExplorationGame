@@ -3,6 +3,7 @@ extends Camera2D
 # TODO add average point of cells always inside camera (limit camera)
 
 
+
 ## ZOOMING CODE ##
 # yoink : https://www.gdquest.com/tutorial/godot/2d/camera-zoom/
 
@@ -37,6 +38,9 @@ func _set_zoom_level(value: float) -> void:
 		tween.EASE_OUT
 	)
 	tween.start()
+	
+	SignalBus.current_zoom = Vector2(1/_zoom_level, 1/_zoom_level)
+	
 	
 func _unhandled_input(event):
 	if event.is_action_pressed("zoom_in"):
