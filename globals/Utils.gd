@@ -41,3 +41,17 @@ func distance_from_origin(pos:Vector2):
 	
 func transport_globla_position_to_cell(position:Vector2):
 	position += Vector2(128,128)
+
+func step_vector_to(vector:Vector2, step)->Vector2:
+	var rest_x :int 
+	var rest_y :int 
+	
+	if vector.x >= 0:
+		rest_x = vector.x / step
+	else:
+		rest_x = vector.x / step -1
+	if vector.y >= 0:
+		rest_y = vector.y / step
+	else:
+		rest_y = vector.y / step -1	
+	return Vector2(rest_x*step, rest_y*step)

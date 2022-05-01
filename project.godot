@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Panel",
+"class": "InventorySlot",
+"language": "GDScript",
+"path": "res://ui/InventorySlot.gd"
+}, {
+"base": "Node2D",
+"class": "MineItem",
+"language": "GDScript",
+"path": "res://scenes/objects/mine/Mine.gd"
+}, {
+"base": "Node2D",
+"class": "TorchItem",
+"language": "GDScript",
+"path": "res://scenes/objects/torch/Torch.gd"
+} ]
+_global_script_class_icons={
+"InventorySlot": "",
+"MineItem": "",
+"TorchItem": ""
+}
+
 [application]
 
 config/name="Exploration Game"

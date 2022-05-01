@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/UI.gd" type="Script" id=1]
 [ext_resource path="res://ui/assets/paper_socket.png" type="Texture" id=2]
 [ext_resource path="res://ui/assets/paper.png" type="Texture" id=3]
-[ext_resource path="res://scenes/objects/torch/Torch.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/PanelControl.gd" type="Script" id=5]
+[ext_resource path="res://ui/InventorySlot.gd" type="Script" id=5]
+[ext_resource path="res://scenes/objects/mine/assets/mina_alfa.png" type="Texture" id=6]
+[ext_resource path="res://scenes/objects/torch/assets/torch 32x32.png" type="Texture" id=7]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 2 )
@@ -68,7 +69,9 @@ size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 5 )
 
-[node name="Torch" parent="BuildingBar/HBoxContainer/Panel" instance=ExtResource( 4 )]
+[node name="Sprite" type="Sprite" parent="BuildingBar/HBoxContainer/Panel"]
+texture = ExtResource( 7 )
+centered = false
 
 [node name="Panel2" type="Panel" parent="BuildingBar/HBoxContainer"]
 margin_left = 40.0
@@ -77,6 +80,11 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="BuildingBar/HBoxContainer/Panel2"]
+texture = ExtResource( 6 )
+centered = false
 
 [node name="Panel3" type="Panel" parent="BuildingBar/HBoxContainer"]
 margin_left = 80.0
@@ -85,6 +93,7 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )
 
 [node name="Panel4" type="Panel" parent="BuildingBar/HBoxContainer"]
 margin_left = 120.0
@@ -93,6 +102,7 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )
 
 [node name="Panel5" type="Panel" parent="BuildingBar/HBoxContainer"]
 margin_left = 160.0
@@ -101,3 +111,4 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )

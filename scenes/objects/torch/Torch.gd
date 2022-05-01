@@ -1,12 +1,9 @@
-extends Node2D
 
-#onready var cell = $".."
+class_name TorchItem extends Node2D
 
-var path = "res://scenes/objects/torch/Torch.tscn"
+#var path = "res://scenes/objects/torch/Torch.tscn"
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-#		cell.is_lighted = true
 		_light()
 
 func _light():

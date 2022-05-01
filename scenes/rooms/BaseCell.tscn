@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://scenes/rooms/BaseCell.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/crackdoor/CrackDoorT.tscn" type="PackedScene" id=2]
@@ -844,9 +844,6 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 33/shapes = [  ]
 33/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=56]
-extents = Vector2( 96, 96 )
-
 [node name="BaseCell" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -855,13 +852,6 @@ tile_set = SubResource( 118 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 0, 4, 0, 1, 5, 0, 2, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 6, 0, 65536, 7, 0, 65537, 21, 1, 65538, 21, 196610, 65539, 21, 65539, 65540, 21, 2, 65541, 21, 1, 65542, 21, 0, 65543, 8, 0, 131072, 7, 0, 131073, 21, 196609, 131074, 21, 131075, 131075, 21, 65538, 131076, 21, 131075, 131077, 21, 196611, 131078, 21, 131074, 131079, 8, 0, 196609, 21, 131073, 196610, 21, 65538, 196611, 21, 65538, 196612, 21, 2, 196613, 21, 131074, 196614, 21, 0, 262144, 7, 0, 262145, 21, 131074, 262146, 21, 1, 262147, 21, 131072, 262148, 21, 1, 262149, 21, 196610, 262150, 21, 196610, 262151, 8, 0, 327680, 7, 0, 327681, 21, 196610, 327682, 21, 196608, 327683, 21, 65539, 327684, 21, 196608, 327685, 21, 65538, 327686, 21, 2, 327687, 8, 0, 393216, 7, 0, 393217, 21, 196611, 393218, 21, 131072, 393219, 21, 196608, 393220, 21, 131074, 393221, 21, 131075, 393222, 21, 131072, 393223, 8, 0, 458752, 9, 0, 458753, 10, 0, 458754, 10, 0, 458756, 10, 0, 458757, 10, 0, 458758, 10, 0, 458759, 11, 0 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 128, 128 )
-input_pickable = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 56 )
 
 [node name="Cracks" type="Node2D" parent="."]
 
@@ -879,6 +869,3 @@ position = Vector2( 224, 96 )
 
 [node name="Torch" parent="." instance=ExtResource( 8 )]
 position = Vector2( 128, 128 )
-
-[connection signal="input_event" from="StaticBody2D" to="." method="_on_StaticBody2D_input_event"]
-[connection signal="mouse_entered" from="StaticBody2D" to="." method="_on_StaticBody2D_mouse_entered"]

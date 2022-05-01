@@ -103,13 +103,11 @@ func _ready() -> void:
 	SignalBus.connect("DoorOpened", self, "_create_adjacent_cell")
 	_create_origin_cell()
 
-
 func set_room_count(value:int):
 	print('updating room count')
 	room_count = value
 	var new_cost = _update_cost()
 	SignalBus.emit_signal('UpdateLabels')
-
 
 func _update_cost():
 	cost_to_unlock = room_count * 5  - 4
@@ -122,6 +120,7 @@ func _create_origin_cell()->void:
 	self.room_count += 1
 	print(room_count)
 
+	origin_cell.light_on()
 	origin_cell.add_gold_generator()
 	origin_cell.activate_structures()
 

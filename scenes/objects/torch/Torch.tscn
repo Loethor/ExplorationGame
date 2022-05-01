@@ -12,11 +12,11 @@ position = Vector2( 16, 16 )
 texture = ExtResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
-visible = false
 position = Vector2( 16, 16 )
 texture = ExtResource( 3 )
 texture_scale = 0.35
 energy = 1.5
+mode = 2
 shadow_enabled = true
 shadow_gradient_length = 2.0
 shadow_filter = 5

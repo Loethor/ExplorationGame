@@ -20,6 +20,11 @@ var lb = Label.new()
 func _ready() -> void:
 	pass
 	
+func light_on():
+	is_lighted = true
+	
+func light_off():
+	is_lighted = false
 
 func init(id:int) -> void:
 	room_id = id
@@ -32,6 +37,7 @@ func init(id:int) -> void:
 #	if has_node("Cracks"):
 #		for crack in $Cracks.get_children():
 #			crack.get_child(3).text = "Cost %s" % roomManager.cost_to_unlock
+	lb.set_position(Vector2(SignalBus.CELL_SIZE/2,SignalBus.CELL_SIZE/2))
 	add_child(lb)
 
 func _do_nothing():
@@ -75,9 +81,3 @@ func set_room_id(value:int)->void:
 	
 func get_room_id()->int:
 	return room_id
-
-#TODO
-func _on_StaticBody2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.doubleclick:
-			$SelectedTileMap.visible = true
