@@ -19,21 +19,24 @@ func _ready() -> void:
 # this code places torches with "Q"
 func _input(event: InputEvent) -> void:
 	
+	# if you press ESC, show/hide menu
 	if event.is_action_pressed("menu"):
 		if $GUI/Menu.visible:
 			$GUI/Menu.hide()
 		else:
 			$GUI/Menu.show()
 	
+	# clicks
 	if event is InputEventMouseButton and DEBUG:
+		print("main first")
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			var mouse_position = get_global_mouse_position()
 			var snapped_mouse = Utils.step_vector_to(mouse_position, 256)
 			print("Global mouse position: %s" % mouse_position)
 			print("Snapped mouse position: %s" % snapped_mouse)
 			
-			if rm.positionToCell.has(snapped_mouse):
-				var cell = rm.positionToCell[snapped_mouse]
+			if Globals.positionToCell.has(snapped_mouse):
+				var cell = Globals.positionToCell[snapped_mouse]
 				
 				# position inside cell coordinates
 				var local_position = cell.to_local(mouse_position)
@@ -58,8 +61,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("place_torch"):
 		var mouse_position = get_global_mouse_position()
 		var snapped_mouse = Utils.step_vector_to(mouse_position, 256)
-		if rm.positionToCell.has(snapped_mouse):
-			var cell = rm.positionToCell[snapped_mouse]
+		if Globals.positionToCell.has(snapped_mouse):
+			var cell = Globals.positionToCell[snapped_mouse]
 			if !cell.is_lighted or true:
 				# some position transformation fuckery
 				var local_position = cell.to_local(mouse_position)

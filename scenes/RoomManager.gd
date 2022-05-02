@@ -88,7 +88,7 @@ onready var contains_bottom_wall = [bottomCell,
 onready var cells_two_walls = [topLeftCell, topRightCell, bottomLeftCell, bottomRightCell]
 onready var cells_three_walls = [bottomRightLeftCell, topRightLeftCell, topBottomLeftCell, topBottomRightCell]
 
-onready var positionToCell : Dictionary = {}
+#onready var Globals.positionToCell : Dictionary = {}
 onready var roomIdToCells : Dictionary = {}
 
 var origin : Vector2 = Vector2.ZERO
@@ -153,7 +153,7 @@ func _create_adjacent_cell(cell, type_of_door, where=Vector2.ZERO, id=null):
 			fun = "_do_nothing"
 	else:
 		new_pos = where
-	if positionToCell.has(new_pos):
+	if Globals.positionToCell.has(new_pos):
 		return
 		
 		
@@ -163,26 +163,26 @@ func _create_adjacent_cell(cell, type_of_door, where=Vector2.ZERO, id=null):
 	var intersect_array:Array = all_cells
 	
 	# check top cell
-	if positionToCell.has(neighbor_neighbor_positions[0]):
-		if positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
+	if Globals.positionToCell.has(neighbor_neighbor_positions[0]):
+		if Globals.positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
 			intersect_array =_intersect_two_arrays(intersect_array, contains_top_wall) 
 		else:
 			intersect_array =_intersect_two_arrays(intersect_array, missing_top_wall)  
 	# check bottom cell
-	if positionToCell.has(neighbor_neighbor_positions[1]):
-		if positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
+	if Globals.positionToCell.has(neighbor_neighbor_positions[1]):
+		if Globals.positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
 			intersect_array =_intersect_two_arrays(intersect_array, contains_bottom_wall) 
 		else:
 			intersect_array =_intersect_two_arrays(intersect_array, missing_bottom_wall)  
 	# check left cell
-	if positionToCell.has(neighbor_neighbor_positions[2]):
-		if positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
+	if Globals.positionToCell.has(neighbor_neighbor_positions[2]):
+		if Globals.positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
 			intersect_array =_intersect_two_arrays(intersect_array, contains_left_wall) 
 		else:
 			intersect_array =_intersect_two_arrays(intersect_array, missing_left_wall)  
 	# check right cell
-	if positionToCell.has(neighbor_neighbor_positions[3]):
-		if positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
+	if Globals.positionToCell.has(neighbor_neighbor_positions[3]):
+		if Globals.positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
 			intersect_array =_intersect_two_arrays(intersect_array, contains_right_wall) 
 		else:
 			intersect_array =_intersect_two_arrays(intersect_array, missing_right_wall)  
@@ -213,38 +213,38 @@ func _create_adjacent_cell(cell, type_of_door, where=Vector2.ZERO, id=null):
 	
 	# open all doors for new cells TODO only when lighting
 	# top
-	if positionToCell.has(neighbor_neighbor_positions[0]):
-		if positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
-			positionToCell[neighbor_neighbor_positions[0]]._open_bottom()
+	if Globals.positionToCell.has(neighbor_neighbor_positions[0]):
+		if Globals.positionToCell[neighbor_neighbor_positions[0]].has_bottom_wall:
+			Globals.positionToCell[neighbor_neighbor_positions[0]]._open_bottom()
 			new_cell._open_top()
 			
-	if positionToCell.has(neighbor_neighbor_positions[1]):
-		if positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
-			positionToCell[neighbor_neighbor_positions[1]]._open_top()
+	if Globals.positionToCell.has(neighbor_neighbor_positions[1]):
+		if Globals.positionToCell[neighbor_neighbor_positions[1]].has_top_wall:
+			Globals.positionToCell[neighbor_neighbor_positions[1]]._open_top()
 			new_cell._open_bottom()
 			
-	if positionToCell.has(neighbor_neighbor_positions[3]):
-		if positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
-			positionToCell[neighbor_neighbor_positions[3]]._open_left()
+	if Globals.positionToCell.has(neighbor_neighbor_positions[3]):
+		if Globals.positionToCell[neighbor_neighbor_positions[3]].has_left_wall:
+			Globals.positionToCell[neighbor_neighbor_positions[3]]._open_left()
 			new_cell._open_right()
 			
-	if positionToCell.has(neighbor_neighbor_positions[2]):
-		if positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
-			positionToCell[neighbor_neighbor_positions[2]]._open_right()
+	if Globals.positionToCell.has(neighbor_neighbor_positions[2]):
+		if Globals.positionToCell[neighbor_neighbor_positions[2]].has_right_wall:
+			Globals.positionToCell[neighbor_neighbor_positions[2]]._open_right()
 			new_cell._open_left()		
 					
 	
 	# TODO new cells without walls
-	if !new_cell.has_top_wall and !positionToCell.has(neighbor_neighbor_positions[0]):
+	if !new_cell.has_top_wall and !Globals.positionToCell.has(neighbor_neighbor_positions[0]):
 		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[0], id)
 	# TODO new cells without walls
-	if !new_cell.has_bottom_wall and !positionToCell.has(neighbor_neighbor_positions[1]):
+	if !new_cell.has_bottom_wall and !Globals.positionToCell.has(neighbor_neighbor_positions[1]):
 		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[1], id)
 	# TODO new cells without walls
-	if !new_cell.has_left_wall and !positionToCell.has(neighbor_neighbor_positions[2]):
+	if !new_cell.has_left_wall and !Globals.positionToCell.has(neighbor_neighbor_positions[2]):
 		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[2], id)
 	# TODO new cells without walls
-	if !new_cell.has_right_wall and !positionToCell.has(neighbor_neighbor_positions[3]):
+	if !new_cell.has_right_wall and !Globals.positionToCell.has(neighbor_neighbor_positions[3]):
 		_create_adjacent_cell(new_cell, "no door", neighbor_neighbor_positions[3], id)
 
 
@@ -256,7 +256,7 @@ func _create_cell(pos:Vector2, kind_of_cell:PackedScene, id:int)->Object:
 	new_cell.init(id)
 	
 	# add cell to dictionary of positions
-	positionToCell[pos] = new_cell
+	Globals.positionToCell[pos] = new_cell
 	
 	# add cell to dictionary of rooms
 	if roomIdToCells.has(id):

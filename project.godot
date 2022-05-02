@@ -42,6 +42,7 @@ config/icon="res://icon.png"
 SignalBus="*res://globals/SignalBus.gd"
 Utils="*res://globals/Utils.gd"
 Player="*res://globals/Player.tscn"
+Globals="*res://globals/Globals.gd"
 
 [display]
 

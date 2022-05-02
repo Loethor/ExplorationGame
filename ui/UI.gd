@@ -68,22 +68,39 @@ func slot_gui_input(event: InputEvent, slot: InventorySlot):
 ##				print(slot.get_child(0))
 ##				holding_item = slot.ItemClass.instance()
 				add_child(holding_item)
-				holding_item.global_position = get_global_mouse_position().snapped(Vector2(32,32))
 
+#				holding_item.global_position = get_global_mouse_position().snapped(Vector2(32,32))
+				holding_item.global_position = Utils.step_vector_to(get_global_mouse_position(), 32)
+				
+
+
+# TODO added globals 
 
 func _toggle_building_bar():
 	$BuildingBar.visible = !$BuildingBar.visible
 
 func _input(event: InputEvent) -> void:
 	
+	if event is InputEventMouseButton:
+		print("gui first")
+		
+		if event.button_index == BUTTON_RIGHT && event.pressed:
+			if holding_item:
+				holding_item.queue_free()
+				holding_item = null
+				get_tree().set_input_as_handled()
+			
 	if holding_item:
 		holding_item.get_child(0).scale = SignalBus.current_zoom
 		# TODO this is not working like I wish :(
-		holding_item.global_position = get_global_mouse_position().snapped(Vector2(32,32))
+#		holding_item.global_position = get_global_mouse_position().snapped(Vector2(32,32))
+		holding_item.global_position = Utils.step_vector_to(get_global_mouse_position(), 32)
+		
 		
 	# Show / Hide the menu with Q
 	if event.is_action_pressed("building_menu"):
 		_toggle_building_bar()
+		
 
 func update_interface() -> void:
 	gold.text = "Gold: %s" % Player.gold
