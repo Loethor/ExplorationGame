@@ -1,7 +1,5 @@
 extends Camera2D
 
-# TODO add average point of cells always inside camera (limit camera)
-
 
 
 ## ZOOMING CODE ##
@@ -117,6 +115,7 @@ func _process(delta):
 	# Update position of the camera.
 	if scrolling_enabled:
 		position += camera_movement * get_zoom()
+
 	
 	# Set camera movement to zero, update old mouse position.
 	camera_movement = Vector2(0,0)

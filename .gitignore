@@ -8,3 +8,9 @@ lib/
 
 *.import
 addons/
+
+# gut files
+asset_lib_icon.png
+BigFont.tres
+BigFontTheme.tres
+.gut*

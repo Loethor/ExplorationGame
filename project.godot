@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "GutHookScript",
+"language": "GDScript",
+"path": "res://addons/gut/hook_script.gd"
+}, {
+"base": "Node",
+"class": "GutTest",
+"language": "GDScript",
+"path": "res://addons/gut/test.gd"
+}, {
 "base": "Panel",
 "class": "InventorySlot",
 "language": "GDScript",
@@ -25,6 +35,8 @@ _global_script_classes=[ {
 "path": "res://scenes/objects/torch/Torch.gd"
 } ]
 _global_script_class_icons={
+"GutHookScript": "",
+"GutTest": "",
 "InventorySlot": "",
 "MineItem": "",
 "TorchItem": ""
@@ -47,6 +59,10 @@ Globals="*res://globals/Globals.gd"
 [display]
 
 window/size/always_on_top=true
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
 
 [gdnative]
 
