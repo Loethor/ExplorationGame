@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var roomManager = preload("res://scenes/RoomManager.tscn")
+onready var roomManager = preload("res://scenes/rooms/RoomManager.tscn")
 onready var rm : Node = roomManager.instance()
 
 onready var torch = preload("res://scenes/objects/torch/Torch.tscn")

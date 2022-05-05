@@ -1,11 +1,22 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/GoldGenerator.gd" type="Script" id=1]
-[ext_resource path="res://assets/tilesets/MysticChroma_Basics.png" type="Texture" id=2]
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	z_index = 1
+	
+func init()->void:
+	Player.gold_structures += 1
+"
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/MysticChroma_Basics.png-cedd6043da5f64dce11e0060f31d7c62.stex"
 
 [sub_resource type="TileSet" id=1]
 0/name = "MysticChroma_Basics.png 0"
-0/texture = ExtResource( 2 )
+0/texture = SubResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 32, 64, 16, 16 )
@@ -19,7 +30,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "MysticChroma_Basics.png 1"
-1/texture = ExtResource( 2 )
+1/texture = SubResource( 3 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 16, 64, 16, 16 )
@@ -34,7 +45,7 @@
 1/z_index = 0
 
 [node name="GoldGenerator" type="Node2D"]
-script = ExtResource( 1 )
+script = SubResource( 2 )
 
 [node name="ObjectsTileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
